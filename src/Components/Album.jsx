@@ -10,11 +10,14 @@ import { Link } from "react-router-dom";
 import {  useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
+import {Auth} from '../Context/api';
+import { useContext } from 'react';
 const theme = createTheme();
 
 export default function Album() {
   const [cards,setCards] = useState([]);
   const navigator = useNavigate();
+  const {user} = useContext(Auth);
   const handlelogin=()=>{
     navigator('/login')
   }
@@ -39,7 +42,7 @@ export default function Album() {
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card._id} xs={12} sm={6} md={4}>
-                <Link to={`/map/${card._id}`}>
+                {user?(<Link to={`/map/${card._id}`}>
                 <Card
                   sx={{
                     height: "100%",
@@ -58,7 +61,7 @@ export default function Album() {
                     </Typography>
                   </CardContent>
                 </Card>
-                </Link>
+                </Link>): (alert("User not logged in"))}
               </Grid>
             ))}
           </Grid>
