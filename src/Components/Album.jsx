@@ -37,10 +37,10 @@ export default function Album() {
         {/* Hero unit */}
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
+          {user? (<Grid container spacing={4}>
+          {cards.map((card) => (
               <Grid item key={card._id} xs={12} sm={6} md={4}>
-                 {user? (
+                 
                 <Card
                   sx={{
                     height: "100%",
@@ -61,11 +61,11 @@ export default function Album() {
                       {card.name}
                     </Typography>
                   </CardContent>
-                </Card>)
-                : (alert("User not logged in"))}
+                </Card>
               </Grid>
             ))}
-          </Grid>
+          </Grid>)
+            : <h2>User not logged in</h2> }
         </Container>
       </main>
     </ThemeProvider>
