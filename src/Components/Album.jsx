@@ -6,7 +6,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link } from "react-router-dom";
 import {  useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { useState } from "react";
@@ -32,7 +31,6 @@ export default function Album() {
   React.useEffect(()=>{
       handledata()
   },[])
-
   return (
     <ThemeProvider theme={theme}>
       <main>
@@ -42,13 +40,16 @@ export default function Album() {
           <Grid container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card._id} xs={12} sm={6} md={4}>
-                {user?(<Link to={`/map/${card._id}`}>
+                 {user? (
                 <Card
                   sx={{
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
                   }}
+                  onClick={()=>{navigator("/map/parameter-data", {
+                    state: { lat:card.location.lat , lng:card.location.lng },
+                  })}}
                 >
                   <CardMedia
                     component="img"
@@ -60,8 +61,8 @@ export default function Album() {
                       {card.name}
                     </Typography>
                   </CardContent>
-                </Card>
-                </Link>): (alert("User not logged in"))}
+                </Card>)
+                : (alert("User not logged in"))}
               </Grid>
             ))}
           </Grid>

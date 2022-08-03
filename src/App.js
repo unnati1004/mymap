@@ -19,7 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<SignIn />} />
       
-          <Route path="/map/:id" element={<BasicMap />} />
+          <Route path="/map/:type" element={<BasicMap />} />
         
       </Routes>
     </div>

@@ -1,36 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import osm from "./Osm_provider";
 import L from "leaflet";
-import { useParams } from "react-router";
-import axios from "axios";
+import {useLocation } from "react-router";
+
 const BasicMap = () => {
-  let { id } = useParams();
-  const [loc,setLoc] = useState({"lat": 28.7041, "lng": 77.1025});
-  useEffect(() => {
-    axios
-    .get(`https://openstreetcity.herokuapp.com/city/${id}`)
-    .then(({ data }) => {
-      console.log(data.location)
-      setLoc(()=>data.location)
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }, []);
+  const { lat, lng } = useLocation().state;
+  const coo = {
+    lat: lat,
+    lon: lng,
+  };
+
+  const zoom_level = 13;
   
-  console.log("loc",loc)
-  const zoom_level = 20;
-  let position = [loc.lat,loc.lng];
-  console.log(position);
   const icon = L.icon({ iconUrl: "dist/images/marker-icon.png" });
-  console.log("id",id);
-  
   return (
     <div>
       <MapContainer
-        center={position}
+        center={coo}
         zoom={zoom_level}
         style={{ height: "100vh", width: "100wh" }}
       >
@@ -38,10 +26,7 @@ const BasicMap = () => {
           url={osm.maptiler.url}
           attribution={osm.maptiler.attribution}
         />
-        <Marker position={position} icon={icon}>
-          <Popup>
-            {loc.name}
-          </Popup>
+        <Marker position={coo} icon={icon}>
         </Marker>
       </MapContainer>
     </div>
