@@ -28,6 +28,7 @@ export default function Album() {
         console.log(e.message);
      })
   }
+  
   React.useEffect(()=>{
       handledata()
   },[])
@@ -48,7 +49,7 @@ export default function Album() {
                     flexDirection: "column",
                   }}
                   onClick={()=>{navigator("/map/parameter-data", {
-                    state: { lat:card.location.lat , lng:card.location.lng },
+                    state: { lat:card.location.lat , lng:card.location.lng ,name:card.name },
                   })}}
                 >
                   <CardMedia

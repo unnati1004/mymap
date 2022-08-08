@@ -6,15 +6,16 @@ import L from "leaflet";
 import {useLocation } from "react-router";
 
 const BasicMap = () => {
-  const { lat, lng } = useLocation().state;
+  const { lat, lng,name } = useLocation().state;
   const coo = {
     lat: lat,
     lon: lng,
+    name:name,
   };
 
   const zoom_level = 13;
   
-  const icon = L.icon({ iconUrl: "dist/images/marker-icon.png" });
+  const icon = L.icon({ iconUrl: "https://img.icons8.com/ultraviolet/30/marker.png" });
   return (
     <div>
       <MapContainer
@@ -27,6 +28,7 @@ const BasicMap = () => {
           attribution={osm.maptiler.attribution}
         />
         <Marker position={coo} icon={icon}>
+          <Popup>{name}</Popup>
         </Marker>
       </MapContainer>
     </div>
